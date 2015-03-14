@@ -1,7 +1,8 @@
-#include <crtdbg.h>
 #include <stdlib.h>
 #include <random>
+#include <cassert>
 #include <limits.h>
+
 #include "Cell.h"
 #include "Segment.h"
 #include "Synapse.h"
@@ -10,6 +11,8 @@
 #include "Utils.h"
 
 #include "Column.h"
+
+namespace htm {
 
 extern MemManager mem_manager;
 
@@ -222,7 +225,7 @@ void Column::CreateProximalSegments(std::vector<DataSpace*> &inputList, std::vec
 				}
 			}
 		}
-		_ASSERT(pos == curInputVolume);
+		assert(pos == curInputVolume);
 
 		// Initialize gaussian distribution random number generator. 
 		std::default_random_engine generator;
@@ -644,3 +647,6 @@ void Column::UpdateOverlapDutyCycle()
 	}
 	_overlapDutyCycle = newCycle;
 }
+
+};
+

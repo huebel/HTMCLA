@@ -2,6 +2,8 @@
 
 #include "MemObject.h"
 
+namespace htm {
+
 class FastListTray
 	: public MemObject
 {
@@ -49,7 +51,7 @@ public:
 class FastListIter
 {
 public:
-	FastListIter(FastList *_list = NULL);
+	FastListIter(FastList *_list = nullptr);
 	FastListIter(FastList &_list);
 
 	void* Reset();
@@ -69,3 +71,6 @@ public:
 	FastList *list;
 	FastListTray *iterator_cur;
 };
+
+};
+

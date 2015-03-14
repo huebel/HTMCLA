@@ -2,6 +2,8 @@
 #include "MemObject.h"
 #include "FastList.h"
 
+namespace htm {
+
 class Cell;
 class Segment;
 class SynapseParameters;
@@ -99,5 +101,7 @@ public:
 	/// Create new synapse connections to the segment to be updated using
 	/// the set of learning cells in this update info.
 	void CreateSynapsesToLearningCells(SynapseParameters *params);
+};
+
 };
 

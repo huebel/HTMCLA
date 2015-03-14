@@ -3,6 +3,8 @@
 #include "Segment.h"
 #include "SegmentUpdateInfo.h"
 
+namespace htm {
+
 class Column;
 
 /// A data structure representing a single context sensitive cell.
@@ -160,4 +162,7 @@ public:
 	/// If no segments are found, then None is returned.
 	Segment *GetBestMatchingSegment(int numPredictionSteps, bool previous);
 };
+
+};
+
 

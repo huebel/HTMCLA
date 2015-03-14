@@ -1,5 +1,7 @@
 #pragma once
 
+namespace htm {
+
 typedef short MemObjectType;
 
 const MemObjectType MOT_UNDEF                        = -1;
@@ -20,4 +22,6 @@ const int DISTAL_SYNAPSE_CHUNK_LENGTH                = 10000;
 const int SEGMENT_CHUNK_LENGTH                       = 1000;
 const int CELL_CHUNK_LENGTH                          = 1000;
 const int SEGMENT_UPDATE_INFO_CHUNK_LENGTH           = 1000;
+
+};
 

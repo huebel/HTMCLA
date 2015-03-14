@@ -1,5 +1,7 @@
 #include "Segment.h"
 
+namespace htm {
+
 extern MemManager mem_manager;
 
 Segment::Segment(void)
@@ -241,3 +243,6 @@ void Segment::DecreasePermanences(FastList &activeSynapses)
 		syn->DecreasePermanence();
 	}
 }
+
+};
+

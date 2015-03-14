@@ -4,7 +4,13 @@
 #include "MemManager.h"
 #include "NetworkManager.h"
 
+namespace htm {
+
 MemManager mem_manager;
+
+};
+
+using namespace htm;
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +21,7 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 
 	// Create and show the window
-	htm window(networkManager, NULL);
+	htm::htm window(networkManager, NULL);
 	window.show();
 
 	// Run the application
@@ -25,3 +31,4 @@ int main(int argc, char *argv[])
 
 	return result;
 }
+

@@ -1,7 +1,14 @@
 #pragma once
+#include <cstddef>
+using namespace std;
+
 #include <QtCore/qstring.h>
 
+
+namespace htm {
+
 typedef int DataSpaceType;
+
 const DataSpaceType DATASPACE_TYPE_INPUTSPACE = 0;
 const DataSpaceType DATASPACE_TYPE_REGION     = 1;
 const DataSpaceType DATASPACE_TYPE_CLASSIFIER = 2;
@@ -30,5 +37,7 @@ public:
 
 	QString id;
 	int index;
+};
+
 };
 

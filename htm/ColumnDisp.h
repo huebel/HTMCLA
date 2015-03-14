@@ -7,6 +7,9 @@
 #include <map>
 
 class QStyleOptionGraphicsItem;
+
+namespace htm {
+
 class Region;
 class Column;
 class View;
@@ -62,3 +65,6 @@ public:
 	int cellIndex;
 	float permanence, connectedPerm;
 };
+
+};
+

@@ -1,5 +1,7 @@
 #pragma once
 
+namespace htm {
+
 #include <stddef.h>
 
 #define Min(a, b) ((a) < (b) ? (a) : (b))
@@ -44,3 +46,6 @@ public:
 
 	int GetArea() {return (MaxX - MinX + 1) * (MaxY - MinY + 1);}
 };
+
+};
+

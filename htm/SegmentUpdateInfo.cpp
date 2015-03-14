@@ -6,6 +6,8 @@
 #include "Column.h"
 #include "Region.h"
 
+namespace htm {
+
 SegmentUpdateInfo::SegmentUpdateInfo(void)
 {
 }
@@ -186,3 +188,6 @@ void SegmentUpdateInfo::CreateSynapsesToLearningCells(SynapseParameters *params)
 {
 	segment->CreateSynapsesToLearningCells(CellsThatWillLearn, params);
 }
+
+};
+

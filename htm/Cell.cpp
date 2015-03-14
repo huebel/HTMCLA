@@ -3,6 +3,8 @@
 #include "Region.h"
 #include "SegmentUpdateInfo.h"
 
+namespace htm {
+
 extern MemManager mem_manager;
 
 Cell::Cell(void)
@@ -380,4 +382,6 @@ Segment *Cell::GetBestMatchingSegment(int numPredictionSteps, bool previous)
 	}
 
 	return bestSegment;
+}
+
 }

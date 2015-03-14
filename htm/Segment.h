@@ -6,6 +6,8 @@
 #include "DistalSynapse.h"
 #include "ProximalSynapse.h"
 
+namespace htm {
+
 class DataSpace;
 
 /// Represents a single dendrite segment that forms synapses (connections) to other Cells.
@@ -192,5 +194,7 @@ public:
 	/// Decrease the permanences of each of the synapses in the set of
 	/// active synapses that happen to be on this segment.
 	void DecreasePermanences(FastList &activeSynapses);
+};
+
 };
 

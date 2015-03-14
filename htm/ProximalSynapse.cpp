@@ -1,7 +1,8 @@
-#include <crtdbg.h>
 #include "ProximalSynapse.h"
 #include "DataSpace.h"
 
+
+namespace htm {
 
 ProximalSynapse::ProximalSynapse(void)
 {
@@ -47,3 +48,6 @@ void ProximalSynapse::Initialize(SynapseParameters *params)
 
 	SetPermanence(0.0f);
 }
+
+};
+

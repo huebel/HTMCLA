@@ -6,6 +6,8 @@
 #include "InputSpace.h"
 #include "Classifier.h"
 
+namespace htm {
+
 const int INPUTSPACE_MAX_SIZE = 1000000;
 const int INPUTSPACE_MAX_NUM_VALUES = 1000;
 
@@ -20,7 +22,7 @@ public:
 
 	void ClearNetwork();
 
-	bool LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QString &_error_msg);
+	bool LoadNetwork(::QString &_filename, ::QXmlStreamReader &_xml, ::QString &_error_msg);
 	bool ParseSynapseParams(QXmlStreamReader &_xml, SynapseParameters &_synapseParams, QString &_error_msg);
 	Region *ParseRegion(QXmlStreamReader &_xml, SynapseParameters _proximalSynapseParams, SynapseParameters _distalSynapseParams, QString &_error_msg);
 	InputSpace *ParseInputSpace(QXmlStreamReader &_xml, QString &_error_msg);
@@ -59,5 +61,7 @@ public:
 	QString filename;
 	int time;
 	bool networkLoaded;
+};
+
 };
 

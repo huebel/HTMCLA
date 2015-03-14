@@ -1,6 +1,8 @@
-#include <crtdbg.h>
 #include "DistalSynapse.h"
 #include "Cell.h"
+#include <cassert>
+
+namespace htm {
 
 DistalSynapse::DistalSynapse(void)
 {
@@ -14,14 +16,14 @@ DistalSynapse::~DistalSynapse(void)
 /// Returns true if this DistalSynapse is active due to the current input.
 bool DistalSynapse::GetIsActive() 
 {
-	_ASSERT(InputSource != NULL);
+	assert(InputSource != nullptr);
 	return InputSource->GetIsActive();
 }
 
 /// Returns true if this DistalSynapse was active due to the previous input at t-1. 
 bool DistalSynapse::GetWasActive()
 {
-	_ASSERT(InputSource != NULL);
+	assert(InputSource != nullptr);
 	return InputSource->GetWasActive();
 }
 
@@ -29,7 +31,7 @@ bool DistalSynapse::GetWasActive()
 /// previously being in a learning state. 
 bool DistalSynapse::GetWasActiveFromLearning()
 {
-	_ASSERT(InputSource != NULL);
+	assert(InputSource != nullptr);
 	return (InputSource->GetWasActive()) && (InputSource->GetWasLearning());
 }
 
@@ -37,7 +39,7 @@ bool DistalSynapse::GetWasActiveFromLearning()
 /// currently being in a learning state. 
 bool DistalSynapse::GetIsActiveFromLearning()
 {
-	_ASSERT(InputSource != NULL);
+	assert(InputSource != nullptr);
 	return (InputSource->GetIsActive()) && (InputSource->GetIsLearning());
 }
 
@@ -61,6 +63,9 @@ void DistalSynapse::Initialize(SynapseParameters *params)
 {
 	Synapse::Initialize(params);
 
-	InputSource = NULL;
+	InputSource = nullptr;
 	SetPermanence(0.0f);
 }
+
+};
+

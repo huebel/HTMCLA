@@ -5,6 +5,8 @@
 #include "Utils.h"
 #include "DataSpace.h"
 
+namespace htm {
+
 /// Represents a synapse that receives feed-forward input from an input cell.
 class ProximalSynapse :
 	public Synapse
@@ -41,5 +43,7 @@ public:
 	/// distanceToInput: In the Region's coordinates; used by Region::AverageReceptiveFieldSize().
 	void Initialize(SynapseParameters *params, DataSpace *inputSource, DataPoint &inputPoint, float permanence, float distanceToInput);
 	void Initialize(SynapseParameters *params);
+};
+
 };
 

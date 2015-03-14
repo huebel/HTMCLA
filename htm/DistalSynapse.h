@@ -1,7 +1,9 @@
 #pragma once
-#include "synapse.h"
+#include "Synapse.h"
 #include "MemObject.h"
 #include "FastList.h"
+
+namespace htm {
 
 class Cell;
 
@@ -50,5 +52,7 @@ public:
 	/// permanence: Initial permanence value.
 	void Initialize(SynapseParameters *params, Cell *inputSrc, float permanence);
 	void Initialize(SynapseParameters *params);
+};
+
 };
 

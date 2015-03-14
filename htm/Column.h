@@ -4,6 +4,8 @@
 #include "FastList.h"
 #include <list>
 
+namespace htm {
+
 class Region;
 class Cell;
 class Column;
@@ -232,3 +234,6 @@ public:
 	/// St = a * Yt + (1-a)*St-1
 	void UpdateOverlapDutyCycle();
 };
+
+};
+

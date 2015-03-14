@@ -2,6 +2,8 @@
 #include <QtCore/QStringList>
 #include "DataSpace.h"
 
+namespace htm {
+
 class InputSpace;
 class Region;
 
@@ -33,5 +35,7 @@ public:
 
 	void SetInputSpace(InputSpace *_inputspace) {inputspace = _inputspace;}
 	void SetRegion(Region *_region) {region = _region;}
+};
+
 };
 

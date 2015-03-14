@@ -6,8 +6,8 @@
 #include "FastList.h"
 #include "htm.h"
 #include <QtGui/QWheelEvent>
-#include <QtWidgets/QStyle.h>
-#include <QtWidgets/QToolButton.h>
+#include <QtWidgets/qstyle.h>
+#include <QtWidgets/qtoolbutton.h>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QLabel>
@@ -17,6 +17,9 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QMenu>
 #include <QtCore/qmath.h>
+#include <cassert>
+
+namespace htm {
 
 void GraphicsView::wheelEvent(QWheelEvent *e)
 {
@@ -373,7 +376,7 @@ void View::SetViewMode(bool _viewActivity, bool _viewReconstruction, bool _viewP
 		if (selRegion != NULL)
 		{
 			Column *selCol = selRegion->GetColumn(selColX, selColY);
-			_ASSERT(selCol != NULL);
+			assert(selCol != NULL);
 
 			Cell *selCell;
 			Segment *seg;
@@ -972,4 +975,6 @@ void View::ShowDataSpace(const QString &_id)
 	// Clear the list of marked cells.
 	marked_cells.clear();
 }
+
+};
 

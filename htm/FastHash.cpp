@@ -1,6 +1,8 @@
-#include <crtdbg.h>
 #include "MemManager.h"
 #include "FastHash.h"
+#include <cassert>
+
+namespace htm {
 
 extern MemManager mem_manager;
 
@@ -9,23 +11,23 @@ void* FastHashTable::BOOL_FALSE = (void*)(0x00000001);
 void* FastHashTable::BOOL_TRUE = (void*)(0x00000002);
 
 FastHashTray::FastHashTray()
-: key(0), pointer(NULL), next(NULL)
+: key(0), pointer(nullptr), next(nullptr)
 {
 }
 
 void FastHashTray::Initialize()
 {
 	key = 0;
-	pointer = NULL;
-	next = NULL;
+	pointer = nullptr;
+	next = nullptr;
 }
 
 FastHashTable::FastHashTable()
-: count(0), iterator_cur(NULL), iterator_bucket_index(NUM_BUCKETS)
+: count(0), iterator_cur(nullptr), iterator_bucket_index(NUM_BUCKETS)
 {
-	// Initialize all bucket pointers to NULL
+	// Initialize all bucket pointers to nullptr
 	for (int i = 0; i < NUM_BUCKETS; i++) {
-		buckets[i] = NULL;
+		buckets[i] = nullptr;
 	}
 }
 
@@ -38,7 +40,7 @@ void FastHashTable::Insert(int _key, void *_object)
 
 	// Iterate through all trays in this bucket, up to the point where the given _object should be inserted.
 	// If the given _object is already in the table, return.
-	while (((*tray_ptr) != NULL) && ((*tray_ptr)->key <= _key))
+	while (((*tray_ptr) != nullptr) && ((*tray_ptr)->key <= _key))
 	{
 		if (((*tray_ptr)->key == _key) && ((*tray_ptr)->pointer == _object))
 		{
@@ -74,7 +76,7 @@ void FastHashTable::Remove(int _key, void *_object)
 	FastHashTray **tray_ptr = &(buckets[bucket_index]);
 
 	// Iterate through all trays in this bucket, up to the point where the given _object is found.
-	while (((*tray_ptr) != NULL) && ((*tray_ptr)->key <= _key))
+	while (((*tray_ptr) != nullptr) && ((*tray_ptr)->key <= _key))
 	{
 		if (((*tray_ptr)->key == _key) && ((*tray_ptr)->pointer == _object))
 		{
@@ -108,13 +110,13 @@ void FastHashTable::Remove(int _key)
 	FastHashTray **tray_ptr = &(buckets[bucket_index]);
 
 	// Iterate through all trays in this bucket, up to the point where the given _object is found.
-	while (((*tray_ptr) != NULL) && ((*tray_ptr)->key < _key))
+	while (((*tray_ptr) != nullptr) && ((*tray_ptr)->key < _key))
 	{
 		// Advance to the next tray
 		tray_ptr = &((*tray_ptr)->next);
 	}
 
-	while (((*tray_ptr) != NULL) && ((*tray_ptr)->key == _key))
+	while (((*tray_ptr) != nullptr) && ((*tray_ptr)->key == _key))
 	{
 		// Record pointer to this tray to be removed.
 		tray_to_remove = (*tray_ptr);
@@ -136,7 +138,7 @@ void *FastHashTable::Get(int _key)
 	int bucket_index = _key & KEY_MASK;
 
   // Iterate through all trays in the given _key's bucket, up to and including those with the given _key.
-	for (FastHashTray *cur_tray = buckets[bucket_index]; ((cur_tray != NULL) && (cur_tray->key <= _key)); cur_tray = cur_tray->next)
+	for (FastHashTray *cur_tray = buckets[bucket_index]; ((cur_tray != nullptr) && (cur_tray->key <= _key)); cur_tray = cur_tray->next)
 	{
 		if (cur_tray->key == _key)
 		{
@@ -145,8 +147,8 @@ void *FastHashTable::Get(int _key)
 		}
 	}
 
-	// There is no tray with the given _key. Return NULL.
-	return NULL;
+	// There is no tray with the given _key. Return nullptr.
+	return nullptr;
 }
 
 void FastHashTable::Clear()
@@ -162,22 +164,22 @@ void FastHashTable::Clear()
 	{
 		// Release all trays in the current bucket
 		cur_tray = buckets[i];
-		while (cur_tray != NULL)
+		while (cur_tray != nullptr)
 		{
 			next_tray = cur_tray->next;
 			mem_manager.ReleaseObject(cur_tray);
 			cur_tray = next_tray;
 		}
 
-		// Set the current bucket pointer to NULL
-		buckets[i] = NULL;
+		// Set the current bucket pointer to nullptr
+		buckets[i] = nullptr;
 	}
 
 	// Reset the count
 	count = 0;
 
 	// Reset the iterator
-	iterator_cur = NULL;
+	iterator_cur = nullptr;
 	iterator_bucket_index = NUM_BUCKETS;
 }
 
@@ -185,7 +187,7 @@ void* FastHashTable::Iterator_Reset()
 {
 	// Reset the iterator
 	iterator_bucket_index = 0;
-	iterator_cur = NULL;
+	iterator_cur = nullptr;
 
 	// Advance to the first object
 	return Iterator_Advance();
@@ -200,16 +202,16 @@ void* FastHashTable::Iterator_Set(int _key)
 	iterator_cur = buckets[bucket_index];
 
 	// Advance to the first tray for the given _key, if one exists.
-	while ((iterator_cur != NULL) && (iterator_cur->key < _key)) {
+	while ((iterator_cur != nullptr) && (iterator_cur->key < _key)) {
 		iterator_cur = iterator_cur->next;
 	}
 
-	if ((iterator_cur == NULL) || (iterator_cur->key > _key))
+	if ((iterator_cur == nullptr) || (iterator_cur->key > _key))
 	{
-		// There are no trays for the given key; the iterator is invalid. Return NULL.
+		// There are no trays for the given key; the iterator is invalid. Return nullptr.
 		iterator_bucket_index = NUM_BUCKETS;
-		iterator_cur = NULL;
-		return NULL;
+		iterator_cur = nullptr;
+		return nullptr;
 	}
 
 	// A tray for the given _key has been found. The iterator is valid.
@@ -222,12 +224,12 @@ void* FastHashTable::Iterator_Set(int _key)
 void* FastHashTable::Iterator_Advance()
 {
 	// If there is a current tray...
-	if (iterator_cur != NULL) 
+	if (iterator_cur != nullptr) 
 	{
 		// Advance to the next tray in this bucket
 		iterator_cur = iterator_cur->next;
 
-		if (iterator_cur == NULL)
+		if (iterator_cur == nullptr)
 		{
 			// There is no next tray in this bucket, so advance to the next bucket.
 			iterator_bucket_index++;
@@ -235,10 +237,10 @@ void* FastHashTable::Iterator_Advance()
 	}
 
 	// If there is no current tray...
-	if (iterator_cur == NULL)
+	if (iterator_cur == nullptr)
 	{
 		// Find the current or next bucket that has any trays in it.
-		while ((iterator_bucket_index < NUM_BUCKETS) && (buckets[iterator_bucket_index] == NULL))
+		while ((iterator_bucket_index < NUM_BUCKETS) && (buckets[iterator_bucket_index] == nullptr))
 		{
 			// There is no tray in this bucket, so advance to the next bucket.
 			iterator_bucket_index++;
@@ -252,29 +254,32 @@ void* FastHashTable::Iterator_Advance()
 	}
 
 	// Return the current object
-	return (iterator_cur == NULL) ? NULL : iterator_cur->pointer;
+	return (iterator_cur == nullptr) ? nullptr : iterator_cur->pointer;
 }
 
 void* FastHashTable::Iterator_AdvanceForKey()
 {
-	_ASSERT(iterator_cur != NULL);
+	assert(iterator_cur != nullptr);
 
-	if ((iterator_cur->next != NULL) && (iterator_cur->next->key == iterator_cur->key))
+	if ((iterator_cur->next != nullptr) && (iterator_cur->next->key == iterator_cur->key))
 	{
 		iterator_cur = iterator_cur->next;
 		return iterator_cur->pointer;
 	}
 	else
 	{
-		// There are no more trays for the current key; the iterator is invalid. Return NULL.
+		// There are no more trays for the current key; the iterator is invalid. Return nullptr.
 		iterator_bucket_index = NUM_BUCKETS;
-		iterator_cur = NULL;
-		return NULL;
+		iterator_cur = nullptr;
+		return nullptr;
 	}
 }
 
 void* FastHashTable::Iterator_Get()
 {
 	// Return the current object
-	return (iterator_cur == NULL) ? NULL : iterator_cur->pointer;
+	return (iterator_cur == nullptr) ? nullptr : iterator_cur->pointer;
 }
+
+};
+

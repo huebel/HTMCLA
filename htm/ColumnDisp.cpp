@@ -7,6 +7,9 @@
 #include <QtGui/QBrush>
 #include <QtGui/QPainter>
 #include <QtWidgets/QStyleOptionGraphicsItem>
+#include <cassert>
+
+namespace htm {
 
 ColumnDisp::ColumnDisp(View *_view, DataSpace *_dataSpace, int _x, int _y)
 {
@@ -173,7 +176,7 @@ void ColumnDisp::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 			if (view->GetViewActivity() && (lod >= 50) && (predicted || learning))
 			{
 				cell = column->GetCellByIndex(i);
-				_ASSERT(cell != NULL);
+				assert(cell != NULL);
 
 				QString str;
 
@@ -357,4 +360,6 @@ void ColumnDisp::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     update();
 }
+
+};
 

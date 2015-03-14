@@ -9,9 +9,12 @@
 #include "ui_htm.h"
 #include "View.h"
 
-class NetworkManager;
 class QLineEdit;
 class QPushButton;
+
+namespace htm {
+
+class NetworkManager;
 
 class htm : public QMainWindow
 {
@@ -85,6 +88,8 @@ private:
 	bool networkFrameRequiresUpdate, selectedFrameRequiresUpdate;
 	int stopTimeVal;
 	QBasicTimer timer;
+};
+
 };
 
 #endif // HTM_H

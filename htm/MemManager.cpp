@@ -1,4 +1,3 @@
-#include <crtdbg.h>
 #include "MemManager.h"
 
 // Object class header files
@@ -9,6 +8,9 @@
 #include "Segment.h"
 #include "SegmentUpdateInfo.h"
 #include "Cell.h"
+#include <cassert>
+
+namespace htm {
 
 bool MemManager::releasing_all = false;
 
@@ -45,14 +47,14 @@ void MemManager::Reset()
 		ReleaseAll(i);
 
     // All objects should have been released!
-    _ASSERT(freeCountArray[i] == countArray[i]);    
+    assert(freeCountArray[i] == countArray[i]);    
   }
 }
 
 MemObject *MemManager::GetObject(MemObjectType _object_type)
 {
-  _ASSERT(_object_type >= 0);
-  _ASSERT(_object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object_type >= 0);
+  assert(_object_type < NUM_MEM_OBJECT_TYPES);
 
   MemObject *curObject;
   
@@ -85,7 +87,7 @@ MemObject *MemManager::GetObject(MemObjectType _object_type)
 
 void MemManager::ReleaseObject(MemObject *_object)
 {
-  _ASSERT(_object != NULL);
+  assert(_object != NULL);
 
 	// Do not release this single object if currently in the process of releasing all objects.
 	if (releasing_all) {
@@ -94,9 +96,9 @@ void MemManager::ReleaseObject(MemObject *_object)
 
   MemObjectType object_type = _object->GetMemObjectType();
 
-  _ASSERT(object_type >= 0);
-  _ASSERT(object_type < NUM_MEM_OBJECT_TYPES);
-  _ASSERT(_object->mem_next == NULL); // Object should not be linked when released.
+  assert(object_type >= 0);
+  assert(object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object->mem_next == NULL); // Object should not be linked when released.
 
 	 // Prepare the object to be released
    _object->Retire();
@@ -109,8 +111,8 @@ void MemManager::ReleaseObject(MemObject *_object)
 
 void MemManager::ReleaseAll(MemObjectType _object_type)
 {
-  _ASSERT(_object_type >= 0);
-  _ASSERT(_object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object_type >= 0);
+  assert(_object_type < NUM_MEM_OBJECT_TYPES);
 
 	// Record that all objects are in the process of being released
 	releasing_all = true;
@@ -170,8 +172,8 @@ void MemManager::ReleaseAll(MemObjectType _object_type)
 
 int MemManager::GetMemUse(MemObjectType _object_type)
 {
-  _ASSERT(_object_type >= 0);
-  _ASSERT(_object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object_type >= 0);
+  assert(_object_type < NUM_MEM_OBJECT_TYPES);
 
   return memUseArray[_object_type];
 }
@@ -190,8 +192,8 @@ int MemManager::GetTotalMemUse()
 
 int MemManager::GetObjectCount(MemObjectType _object_type)
 {
-  _ASSERT(_object_type >= 0);
-  _ASSERT(_object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object_type >= 0);
+  assert(_object_type < NUM_MEM_OBJECT_TYPES);
 
   return countArray[_object_type];
 }
@@ -210,8 +212,8 @@ int MemManager::GetTotalObjectCount()
 
 int MemManager::GetFreeObjectCount(MemObjectType _object_type)
 {
-  _ASSERT(_object_type >= 0);
-  _ASSERT(_object_type < NUM_MEM_OBJECT_TYPES);
+  assert(_object_type >= 0);
+  assert(_object_type < NUM_MEM_OBJECT_TYPES);
 
   return freeCountArray[_object_type];
 }
@@ -330,3 +332,6 @@ void MemManager::NewChunk(MemObjectType _object_type)
 		break;
 	}
 }
+
+};
+

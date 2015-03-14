@@ -8,6 +8,8 @@
 #include <QtCore/QDir>
 #include <QtCore/QTextStream>
 
+namespace htm {
+
 extern MemManager mem_manager;
 
 NetworkManager::NetworkManager(void)
@@ -119,7 +121,7 @@ bool NetworkManager::LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QSt
 				// Attempt to parse and create the new Region.
 				newRegion = ParseRegion(_xml, defaultProximalSynapseParams, defaultDistalSynapseParams, _error_msg);
 
-				if (newRegion == NULL) 
+				if (newRegion == nullptr) 
 				{
 					ClearNetwork();
 					return false;
@@ -138,7 +140,7 @@ bool NetworkManager::LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QSt
 				// Attempt to parse and create the new InputSpace.
 				newInputSpace = ParseInputSpace(_xml, _error_msg);
 
-				if (newInputSpace == NULL) 
+				if (newInputSpace == nullptr) 
 				{
 					ClearNetwork();
 					return false;
@@ -157,7 +159,7 @@ bool NetworkManager::LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QSt
 				// Attempt to parse and create the new Classifier.
 				newClassifier = ParseClassifier(_xml, _error_msg);
 
-				if (newClassifier == NULL) 
+				if (newClassifier == nullptr) 
 				{
 					ClearNetwork();
 					return false;
@@ -205,7 +207,7 @@ bool NetworkManager::LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QSt
 			// Get a pointer to the DataSpace with this Region's current input's ID.
 			dataSpace = GetDataSpace(*input_id_iter);
 
-			if (dataSpace == NULL)
+			if (dataSpace == nullptr)
 			{
 				_error_msg = "Region " + (*region_iter)->id + "'s input " + *input_id_iter + " is not a known Region or InputSpace.";
 				ClearNetwork();
@@ -229,7 +231,7 @@ bool NetworkManager::LoadNetwork(QString &_filename, QXmlStreamReader &_xml, QSt
 		// Get a pointer to the Region with this Classifier's regionID.
 		(*classifier_iter)->region = GetRegion((*classifier_iter)->regionID);
 
-		if (((*classifier_iter)->inputspace == NULL) || ((*classifier_iter)->region == NULL))
+		if (((*classifier_iter)->inputspace == nullptr) || ((*classifier_iter)->region == nullptr))
 		{
 			_error_msg = "Classifier " + (*classifier_iter)->id + " must have both a valid region and inputspace.";
 			return false;
@@ -354,7 +356,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 	int predictionRadius = -1, segmentActivateThreshold = 0, newNumberSynapses = 0;
 	InhibitionTypeEnum inhibitionType = INHIBITION_TYPE_AUTOMATIC;
 	int inhibitionRadius = -1;
-	Region *newRegion = NULL;
+	Region *newRegion = nullptr;
 	std::vector<QString> input_ids;
 	std::vector<int> input_radii;
 	bool inputFound = false, result;
@@ -383,7 +385,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 		if (_xml.atEnd()) 
 		{
 			_error_msg = "Unexpected end of document.";
-			return NULL;
+			return nullptr;
 		}
 
 		if (_xml.tokenType() == QXmlStreamReader::StartElement) 
@@ -460,7 +462,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 					else 
 					{
 						_error_msg = "Region " + id + " has unknown inhibition type " + attributes.value("type").toString() + ".";
-						return NULL;
+						return nullptr;
 					}
 				}
 
@@ -609,7 +611,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 				result = ParseSynapseParams(_xml, _proximalSynapseParams, _error_msg);
 
 				if (result == false) {
-					return false;
+					return nullptr;
 				}
 			}
 
@@ -620,7 +622,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 				result = ParseSynapseParams(_xml, _distalSynapseParams, _error_msg);
 
 				if (result == false) {
-					return false;
+					return nullptr;
 				}
 			}
 
@@ -644,7 +646,7 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 					if ((inputRadius < -1) || (inputRadius > INPUTSPACE_MAX_SIZE))
 					{
 						_error_msg = "Region " + id + " has input with invalid InputRadius " + QString(inputRadius) + ".";
-						return NULL;
+						return nullptr;
 					}
 				}
 
@@ -660,162 +662,162 @@ Region *NetworkManager::ParseRegion(QXmlStreamReader &_xml, SynapseParameters _p
 	if (id.length() == 0)
 	{
 		_error_msg = "Region missing ID.";
-		return NULL;
+		return nullptr;
 	}
 
 	if (!inputFound)
 	{
 		_error_msg = "Region " + id + " has no Input(s).";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeX <= 0) || (sizeX > INPUTSPACE_MAX_SIZE))
 	{
 		_error_msg = "Region " + id + " has invalid SizeX " + QString(sizeX) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeY <= 0) || (sizeY > INPUTSPACE_MAX_SIZE))
 	{
 		_error_msg = "Region " + id + " has invalid SizeY " + QString(sizeY) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((cellsPerColumn <= 0) || (cellsPerColumn > INPUTSPACE_MAX_NUM_VALUES))
 	{
 		_error_msg = "Region " + id + " has invalid CellsPerColumn " + QString(cellsPerColumn) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((hypercolumnDiameter <= 0) || (hypercolumnDiameter > Min(sizeX, sizeY)))
 	{
 		_error_msg = "Region " + id + " has invalid HypercolumnDiameter " + QString(hypercolumnDiameter) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeX % hypercolumnDiameter) != 0)
 	{
 		_error_msg = "Region " + id + " has SizeX " + QString(sizeX) + " that is not evenly divisible by its HypercolumnDiameter " + QString(hypercolumnDiameter) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeY % hypercolumnDiameter) != 0)
 	{
 		_error_msg = "Region " + id + " has SizeY " + QString(sizeY) + " that is not evenly divisible by its HypercolumnDiameter " + QString(hypercolumnDiameter) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((predictionRadius < -1) || (predictionRadius > INPUTSPACE_MAX_SIZE))
 	{
 		_error_msg = "Region " + id + " has invalid PredictionRadius " + QString(predictionRadius) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((maxBoost <= 1.0f) && (maxBoost != -1))
 	{
 		temp_string.setNum(maxBoost);
 		_error_msg = "Region " + id + " has invalid Boost max value " + temp_string + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (boostRate <= 0)
 	{
 		temp_string.setNum(boostRate);
 		_error_msg = "Region " + id + " has invalid Boost rate value " + temp_string + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (spatialLearningStartTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid SpatialLearningPeriod start time " + QString(spatialLearningStartTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (spatialLearningEndTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid SpatialLearningPeriod end time " + QString(spatialLearningEndTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (temporalLearningStartTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid TemporalLearningPeriod start time " + QString(temporalLearningStartTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (temporalLearningEndTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid TemporalLearningPeriod end time " + QString(temporalLearningEndTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (boostingStartTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid BoostingPeriod start time " + QString(boostingStartTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (boostingEndTime < -1)
 	{
 		_error_msg = "Region " + id + " has invalid BoostingPeriod end time " + QString(boostingEndTime) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (segmentActivateThreshold <= 0)
 	{
 		_error_msg = "Region " + id + " has invalid SegmentActivateThreshold " + QString(segmentActivateThreshold) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (newNumberSynapses <= 0)
 	{
 		_error_msg = "Region " + id + " has invalid NewNumberSynapses " + QString(newNumberSynapses) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (min_MinOverlapToReuseSegment < 0)
 	{
 		_error_msg = "Region " + id + " has invalid MinOverlapToReuseSegment min value " + QString(min_MinOverlapToReuseSegment) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (max_MinOverlapToReuseSegment < 0)
 	{
 		_error_msg = "Region " + id + " has invalid MinOverlapToReuseSegment max value " + QString(max_MinOverlapToReuseSegment) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((outputColumnActivity == false) && (outputCellActivity == false))
 	{
 		_error_msg = "Region " + id + " has no output.";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((percentageInputPerCol <= 0.0f) || (percentageInputPerCol > 100.0f))
 	{
 		temp_string.setNum(percentageInputPerCol);
 		_error_msg = "Region " + id + " has invalid PercentageInputPerCol " + temp_string + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((percentageMinOverlap <= 0.0f) || (percentageMinOverlap > 100.0f))
 	{
 		temp_string.setNum(percentageMinOverlap);
 		_error_msg = "Region " + id + " has invalid PercentageInputPerCol " + temp_string + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((percentageLocalActivity <= 0.0f) || (percentageLocalActivity > 100.0f))
 	{
 		temp_string.setNum(percentageLocalActivity);
 		_error_msg = "Region " + id + " has invalid PercentageLocalActivity " + temp_string + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if (input_ids.size() == 0)
 	{
 		_error_msg = "Region " + id + " has no Inputs.";
-		return NULL;
+		return nullptr;
 	}
 
 	// Create the new Region.
@@ -834,7 +836,7 @@ InputSpace *NetworkManager::ParseInputSpace(QXmlStreamReader &_xml, QString &_er
 	int sizeX = 0, sizeY = 0, numValues = 0;
 	std::vector<PatternInfo*> patterns;
 	PatternInfo *newPattern;
-	InputSpace *newInputSpace = NULL;
+	InputSpace *newInputSpace = nullptr;
 
 	// Look for ID attribute
 	QXmlStreamAttributes attributes = _xml.attributes();
@@ -859,7 +861,7 @@ InputSpace *NetworkManager::ParseInputSpace(QXmlStreamReader &_xml, QString &_er
 		if (_xml.atEnd()) 
 		{
 			_error_msg = "Unexpected end of document.";
-			return NULL;
+			return nullptr;
 		}
 
 		if (_xml.tokenType() == QXmlStreamReader::StartElement) 
@@ -898,7 +900,7 @@ InputSpace *NetworkManager::ParseInputSpace(QXmlStreamReader &_xml, QString &_er
 				{
 					newPattern = ParsePattern(_xml, _error_msg, sizeX, sizeY);
 
-					if (newPattern != NULL) {
+					if (newPattern != nullptr) {
 						patterns.push_back(newPattern);
 					}
 				}
@@ -912,25 +914,25 @@ InputSpace *NetworkManager::ParseInputSpace(QXmlStreamReader &_xml, QString &_er
 	if (id.length() == 0)
 	{
 		_error_msg = "InputSpace missing ID.";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeX <= 0) || (sizeX > INPUTSPACE_MAX_SIZE))
 	{
 		_error_msg = "InputSpace " + id + " has invalid SizeX " + QString(sizeX) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((sizeY <= 0) || (sizeY > INPUTSPACE_MAX_SIZE))
 	{
 		_error_msg = "InputSpace " + id + " has invalid SizeY " + QString(sizeY) + ".";
-		return NULL;
+		return nullptr;
 	}
 
 	if ((numValues <= 0) || (numValues > INPUTSPACE_MAX_NUM_VALUES))
 	{
 		_error_msg = "InputSpace " + id + " has invalid NumValues " + QString(numValues) + ".";
-		return NULL;
+		return nullptr;
 	}
   
 	// Create the new InputSpace
@@ -1026,7 +1028,7 @@ PatternInfo *NetworkManager::ParsePattern(QXmlStreamReader &_xml, QString &_erro
 		if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) 
 		{
 			_error_msg = "Could not open file " + sourceFilename + ".";
-			return NULL;
+			return nullptr;
 		}
 
 		QTextStream in(file);
@@ -1119,17 +1121,17 @@ PatternInfo *NetworkManager::ParsePattern(QXmlStreamReader &_xml, QString &_erro
 
 	if (patternMinTrialDuration <= 0) {
 		_error_msg = QString("Minimum trial duration is too low: ").arg(patternMinTrialDuration);
-		return NULL;
+		return nullptr;
 	}
 
 	if (patternMaxTrialDuration <= 0) {
 		_error_msg = QString("Maximum trial duration is too low: ").arg(patternMaxTrialDuration);
-		return NULL;
+		return nullptr;
 	}
 
 	if (patternMaxTrialDuration < patternMinTrialDuration) {
 		_error_msg = QString("Maximum trial duration is less than minimum trial duration.");
-		return NULL;
+		return nullptr;
 	}
 
 	// Advance to the next element.
@@ -1213,25 +1215,25 @@ Classifier *NetworkManager::ParseClassifier(QXmlStreamReader &_xml, QString &_er
 	if (id == "") 
 	{
 		_error_msg = QString("Classifier must have 'id' attribute.");
-		return NULL;
+		return nullptr;
 	}
 
 	if (regionID == "") 
 	{
 		_error_msg = QString("Classifier '" + id + "' must have 'region' ID.");
-		return NULL;
+		return nullptr;
 	}
 
 	if (inputspaceID == "") 
 	{
 		_error_msg = QString("Classifier '" + id + "' must have 'inputspace' ID.");
-		return NULL;
+		return nullptr;
 	}
 
 	if (numitems <= 0)
 	{
 		_error_msg = QString("Classifier '" + id + "' must have 'numitems' greater than 0.");
-		return NULL;
+		return nullptr;
 	}
 
 	// Advance to the next element.
@@ -1252,7 +1254,7 @@ void NetworkManager::ReadItem(char* &_linePos, char _separator, char *_stringBuf
 {
 	char *separator_pos = strchr(_linePos, _separator);
 
-	if (separator_pos == NULL)
+	if (separator_pos == nullptr)
 	{
 		_stringBuffer[0] = '\0';
 		return;
@@ -1448,7 +1450,7 @@ bool NetworkManager::LoadData_ProximalSegment(QDataStream &_stream, Region *_reg
 
 		dataSpace = (dataSpaceType == DATASPACE_TYPE_INPUTSPACE) ? ((DataSpace*)(inputSpaces[dataSpaceIndex])) : ((DataSpace*)(regions[dataSpaceIndex]));
 
-		if (dataSpace == NULL) 
+		if (dataSpace == nullptr) 
 		{
 			_error_msg = QString("Proximal synapse connects to Region or InputSpace that does not exist in network.");
 			return false;
@@ -1591,7 +1593,7 @@ bool NetworkManager::SaveData_ProximalSegment(QDataStream &_stream, Segment *_se
 
 	FastListIter synIter(_segment->Synapses);
 	ProximalSynapse *syn;
-	for (syn = (ProximalSynapse*)(synIter.Reset()); syn != NULL; syn = (ProximalSynapse*)(synIter.Advance()))
+	for (syn = (ProximalSynapse*)(synIter.Reset()); syn != nullptr; syn = (ProximalSynapse*)(synIter.Advance()))
 	{
 		_stream << syn->GetPermanence();
 		_stream << syn->InputSource->GetDataSpaceType();
@@ -1619,7 +1621,7 @@ bool NetworkManager::SaveData_DistalSegment(QDataStream &_stream, Segment *_segm
 
 	FastListIter synIter(_segment->Synapses);
 	DistalSynapse *syn;
-	for (syn = (DistalSynapse*)(synIter.Reset()); syn != NULL; syn = (DistalSynapse*)(synIter.Advance()))
+	for (syn = (DistalSynapse*)(synIter.Reset()); syn != nullptr; syn = (DistalSynapse*)(synIter.Advance()))
 	{
 		_stream << syn->GetPermanence();
 		_stream << syn->GetInputSource()->GetColumn()->Position.X;
@@ -1634,7 +1636,7 @@ DataSpace *NetworkManager::GetDataSpace(const QString _id)
 {
 	InputSpace *inputspace = GetInputSpace(_id);
 
-	if (inputspace != NULL) {
+	if (inputspace != nullptr) {
 		return inputspace;
 	}
 
@@ -1653,7 +1655,7 @@ InputSpace *NetworkManager::GetInputSpace(const QString _id)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 Region *NetworkManager::GetRegion(const QString _id)
@@ -1666,7 +1668,7 @@ Region *NetworkManager::GetRegion(const QString _id)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void NetworkManager::Step()
@@ -1694,3 +1696,6 @@ void NetworkManager::WriteToLog(QString _text)
 			stream << _text << endl;
 	}
 }
+
+};
+

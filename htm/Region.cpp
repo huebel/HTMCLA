@@ -1,9 +1,11 @@
 #include "Region.h"
 #include "NetworkManager.h"
 #include <math.h>
-#include <crtdbg.h>
+#include <cassert>
 #include "Utils.h"
 #include "Cell.h"
+
+namespace htm {
 
 Region::~Region(void)
 {
@@ -138,9 +140,9 @@ Region::Region(NetworkManager *manager, QString &_id, Point colGridSize, int hyp
 
 bool Region::GetIsActive(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < Width));
-	_ASSERT((_y >= 0) && (_y < Height));
-	_ASSERT((_index >= 0) && (_index < NumOutputValues));
+	assert((_x >= 0) && (_x < Width));
+	assert((_y >= 0) && (_y < Height));
+	assert((_index >= 0) && (_index < NumOutputValues));
 
 	Column *col = Columns[_x + (_y * Width)];
 
@@ -162,15 +164,15 @@ bool Region::GetIsActive(int _x, int _y, int _index)
 void Region::AddInput(DataSpace *_inputDataSpace)
 {
 	// If HardcodedSpatial is true, then there can be only one input DataSpace, and it must be the same size as this Region, and have only 1 value.
-	_ASSERT((HardcodedSpatial == false) || ((InputList.size() == 0) && (_inputDataSpace->GetNumValues() == 1) && (_inputDataSpace->GetSizeX() == Width) && (_inputDataSpace->GetSizeY() == Height)));
+	assert((HardcodedSpatial == false) || ((InputList.size() == 0) && (_inputDataSpace->GetNumValues() == 1) && (_inputDataSpace->GetSizeX() == Width) && (_inputDataSpace->GetSizeY() == Height)));
 
 	InputList.push_back(_inputDataSpace);
 }
 
 bool Region::IsCellActive(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < Width));
-	_ASSERT((_y >= 0) && (_y < Height));
+	assert((_x >= 0) && (_x < Width));
+	assert((_y >= 0) && (_y < Height));
 	
 	Column *col = Columns[_x + (_y * Width)];
 
@@ -180,8 +182,8 @@ bool Region::IsCellActive(int _x, int _y, int _index)
 
 bool Region::IsCellPredicted(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < Width));
-	_ASSERT((_y >= 0) && (_y < Height));
+	assert((_x >= 0) && (_x < Width));
+	assert((_y >= 0) && (_y < Height));
 	
 	Column *col = Columns[_x + (_y * Width)];
 
@@ -191,8 +193,8 @@ bool Region::IsCellPredicted(int _x, int _y, int _index)
 
 bool Region::IsCellLearning(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < Width));
-	_ASSERT((_y >= 0) && (_y < Height));
+	assert((_x >= 0) && (_x < Width));
+	assert((_y >= 0) && (_y < Height));
 	
 	Column *col = Columns[_x + (_y * Width)];
 
@@ -202,8 +204,8 @@ bool Region::IsCellLearning(int _x, int _y, int _index)
 
 Cell *Region::GetCell(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < Width));
-	_ASSERT((_y >= 0) && (_y < Height));
+	assert((_x >= 0) && (_x < Width));
+	assert((_y >= 0) && (_y < Height));
 
 	Column *col = Columns[_x + (_y * Width)];
 
@@ -479,7 +481,7 @@ void Region::PerformTemporalPooling()
 			{
 				// isSequence=true, previous=true
 				col->GetBestMatchingCell(1, true, bestCell, bestSegment);
-				_ASSERT(bestCell != NULL);
+				assert(bestCell != NULL);
 
 				bestCell->SetIsLearning(true);
 
@@ -772,3 +774,6 @@ void Region::ComputeColumnAccuracy()
 		}
 	}
 }
+
+};
+

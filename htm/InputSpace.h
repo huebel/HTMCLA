@@ -3,6 +3,8 @@
 #include <QtGui/QImage>
 #include <QtGui/QPainter>
 
+namespace htm {
+
 enum PatternType
 {
 	PATTERN_NONE,
@@ -90,5 +92,7 @@ public:
 
 	void ApplyPatterns(int _time);
 	void ApplyPattern(PatternInfo *_pattern, int _time);
+};
+
 };
 

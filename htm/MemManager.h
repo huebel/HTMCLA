@@ -3,6 +3,8 @@
 #include "MemObject.h"
 #include "MemObjectType.h"
 
+namespace htm {
+
 class MemManager
 {
 public:
@@ -34,7 +36,7 @@ private:
 	class ChunkNode
 	{
 	public:
-		ChunkNode() : chunk(NULL), next(NULL) {};
+		ChunkNode() : chunk(nullptr), next(nullptr) {};
 		MemObject *chunk;
 		ChunkNode *next;
 	};
@@ -51,5 +53,7 @@ private:
   ChunkNode* chunkArray[NUM_MEM_OBJECT_TYPES];
 
 	static bool releasing_all;
+};
+
 };
 

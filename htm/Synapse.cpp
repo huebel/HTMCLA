@@ -1,6 +1,7 @@
-#include <crtdbg.h>
 #include "Synapse.h"
 #include "Utils.h"
+
+namespace htm {
 
 Synapse::Synapse(void)
 {
@@ -59,3 +60,6 @@ void Synapse::IncreasePermanence(float amount, float max)
 {
 	SetPermanence(Min(max, Permanence + amount));
 }
+
+};
+

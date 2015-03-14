@@ -11,13 +11,15 @@
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QTextStream>
 #include <QtCore/QTime>
-#include <QtWidgets/QFrame.h>
-#include <QtWidgets/QPushButton.h>
-#include <QtWidgets/QTabWidget.h>
-#include <QtWidgets/QLabel.h>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QDesktopWidget>
+
+namespace htm {
 
 htm::htm(NetworkManager *_networkManager, QWidget *_parent)
 	: QMainWindow(_parent), networkManager(_networkManager)
@@ -68,7 +70,7 @@ htm::htm(NetworkManager *_networkManager, QWidget *_parent)
 	networkFrame->setLayout(networkFrameLayout);
 
 	// Create the network name label
-	networkName = new QLabel();
+	networkName = new ::QLabel();
 	networkFrameLayout->addWidget(networkName);
 
 	// Create the controls frame.
@@ -358,7 +360,7 @@ void htm::loadNetworkFile()
 	if (!fileName.isEmpty()) 
 	{
 		// Load network
-		QFile* file = new QFile(fileName);
+		::QFile* file = new QFile(fileName);
     
 		// If the file failed to open, display message.
 		if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) 
@@ -368,11 +370,12 @@ void htm::loadNetworkFile()
 		}
     
 		// Load the XML stream from the file.
-    QXmlStreamReader xml(file);
+		::QXmlStreamReader xml(file);
 
 		// Parse the XML file
-		QString error_msg;
-		bool result = networkManager->LoadNetwork(QFileInfo(*file).fileName(), xml, error_msg);
+		::QString error_msg;
+		auto filename = QFileInfo(*file).fileName();
+		bool result = networkManager->LoadNetwork(filename, xml, error_msg);
 
 		if (result == false) 
 		{
@@ -412,7 +415,8 @@ void htm::loadDataFile()
     
 		// Parse the data file
 		QString error_msg;
-		bool result = networkManager->LoadData(QFileInfo(*file).fileName(), file, error_msg);
+		auto filename = QFileInfo(*file).fileName();
+		bool result = networkManager->LoadData(filename, file, error_msg);
 
 		if (result == false) 
 		{
@@ -443,7 +447,8 @@ void htm::saveDataFile()
 
 		// Save the data file
 		QString error_msg;
-		bool result = networkManager->SaveData(QFileInfo(*file).fileName(), file, error_msg);
+		auto filename = QFileInfo(*file).fileName();
+		bool result = networkManager->SaveData(filename, file, error_msg);
 		
 		if (result == false) 
 		{
@@ -741,3 +746,6 @@ void htm::UpdateSelectedInfo()
 
 	selectedInfo->setText(infoString);
 }
+
+};
+

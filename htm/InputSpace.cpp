@@ -1,7 +1,9 @@
 #include "InputSpace.h"
 #include "Utils.h"
 #include <string.h>
-#include <crtdbg.h>
+#include <cassert>
+
+namespace htm {
 
 InputSpace::InputSpace(QString &_id, int _sizeX, int _sizeY, int _numValues, std::vector<PatternInfo*> &_patterns)
 	: DataSpace(_id), image(NULL), patterns(_patterns)
@@ -62,18 +64,18 @@ int InputSpace::GetHypercolumnDiameter()
 
 bool InputSpace::GetIsActive(int _x, int _y, int _index)
 {
-	_ASSERT((_x >= 0) && (_x < sizeX));
-	_ASSERT((_y >= 0) && (_y < sizeY));
-	_ASSERT((_index >= 0) && (_index < numValues));
+	assert((_x >= 0) && (_x < sizeX));
+	assert((_y >= 0) && (_y < sizeY));
+	assert((_index >= 0) && (_index < numValues));
 
 	return (data[(_y * rowSize) + (_x * numValues) + _index] != 0);
 }
 
 void InputSpace::SetIsActive(int _x, int _y, int _index, bool _active)
 {
-	_ASSERT((_x >= 0) && (_x < sizeX));
-	_ASSERT((_y >= 0) && (_y < sizeY));
-	_ASSERT((_index >= 0) && (_index < numValues));
+	assert((_x >= 0) && (_x < sizeX));
+	assert((_y >= 0) && (_y < sizeY));
+	assert((_index >= 0) && (_index < numValues));
 
 	data[(_y * rowSize) + (_x * numValues) + _index] = (_active ? 1 : 0);
 }
@@ -546,3 +548,6 @@ void InputSpace::ApplyPattern(PatternInfo *_pattern, int _time)
 		break;
 	}
 }
+
+};
+

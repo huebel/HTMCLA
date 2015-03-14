@@ -2,6 +2,8 @@
 
 #include "MemObjectType.h"
 
+namespace htm {
+
 class MemObject
 {
   public:
@@ -11,5 +13,7 @@ class MemObject
 
 	public:
 		MemObject *mem_next;
+};
+
 };
 

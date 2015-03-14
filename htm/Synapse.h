@@ -1,6 +1,8 @@
 #pragma once
 #include "FastList.h"
 
+namespace htm {
+
 class SynapseParameters
 {
 public:
@@ -92,4 +94,5 @@ public:
 	void IncreasePermanence(float amount, float max=1.0f);
 };
 
+};
 

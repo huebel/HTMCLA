@@ -2,6 +2,8 @@
 
 #include "MemObject.h"
 
+namespace htm {
+
 const int NUM_BUCKETS = 256;
 const int KEY_MASK = 0x000000FF;
 
@@ -45,5 +47,7 @@ public:
 	int iterator_bucket_index;
 
 	static void *BOOL_TRUE, *BOOL_FALSE;
+};
+
 };
 

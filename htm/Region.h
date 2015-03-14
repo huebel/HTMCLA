@@ -6,6 +6,8 @@
 #include "Synapse.h"
 #include <list>
 
+namespace htm {
+
 class NetworkManager;
 class Cell;
 
@@ -392,5 +394,7 @@ public:
 	/// Updates statistics values.
 	void ComputeBasicStatistics();
 	void ComputeColumnAccuracy();
+};
+
 };
 

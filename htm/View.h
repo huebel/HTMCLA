@@ -9,6 +9,9 @@ class QToolButton;
 class QLabel;
 class QComboBox;
 class QMenu;
+
+namespace htm {
+
 class View;
 class ColumnDisp;
 class htm;
@@ -26,8 +29,9 @@ enum MarkType {
 
 class GraphicsView : public QGraphicsView
 {
-	Q_OBJECT
+	Q_OBJECT;
 public:
+
     GraphicsView(View *v) : QGraphicsView(), view(v) { }
 
 protected:
@@ -41,8 +45,9 @@ private:
 
 class View : public QFrame
 {
-	Q_OBJECT
+	Q_OBJECT;
 public:
+
     explicit View(htm *_win, QWidget *parent = 0);
 
     QGraphicsView *view() const;
@@ -119,5 +124,7 @@ public:
 
 	std::map<ColumnDisp*,ColumnDisp*> cols_with_sel_synapses;
 	std::map<int, int> marked_cells;
+};
+
 };
 
