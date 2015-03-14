@@ -1,3 +1,10 @@
 *.o
 htm/htm
 htm/ui_htm.h
+htm/Makefile
+htm/htm
+htm/qrc_htm.cpp
+htm/qrc_images.cpp
+htm/ui_htm.h
+htm/moc_View.cpp
+htm/moc_htm.cpp
