@@ -1,6 +1,6 @@
 #pragma once
+
 #include <cstddef>
-using namespace std;
 
 #include <QtCore/qstring.h>
 

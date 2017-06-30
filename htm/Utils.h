@@ -1,8 +1,8 @@
 #pragma once
 
-namespace htm {
-
 #include <stddef.h>
+
+namespace htm {
 
 #define Min(a, b) ((a) < (b) ? (a) : (b))
 #define Max(a, b) ((a) > (b) ? (a) : (b))

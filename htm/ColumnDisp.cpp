@@ -8,6 +8,7 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QStyleOptionGraphicsItem>
 #include <cassert>
+#include <cmath>
 
 namespace htm {
 

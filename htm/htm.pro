@@ -47,14 +47,15 @@ SOURCES += Cell.cpp \
            MemManager.cpp \
            NetworkManager.cpp \
            ProximalSynapse.cpp \
-           qrc_htm.cpp \
-           qrc_images.cpp \
            Region.cpp \
            Segment.cpp \
            SegmentUpdateInfo.cpp \
            Synapse.cpp \
            View.cpp
+
 RESOURCES += htm.qrc images.qrc
 
-LIBS += -lQt5Widgets
+# LIBS += -lQt5Widgets
+
+LIBS += -framework QtWidgets
 

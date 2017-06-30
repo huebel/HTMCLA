@@ -10,18 +10,16 @@ MemManager mem_manager;
 
 };
 
-using namespace htm;
-
 int main(int argc, char *argv[])
 {
-	// Create the NetworkManager
-	NetworkManager *networkManager = new NetworkManager();
+    // Create the NetworkManager
+    htm::NetworkManager *networkManager = new htm::NetworkManager();
 
 	// Create the application
 	QApplication app(argc, argv);
 
 	// Create and show the window
-	htm::htm window(networkManager, NULL);
+    htm::htm window(networkManager, NULL);
 	window.show();
 
 	// Run the application
