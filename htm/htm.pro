@@ -30,7 +30,6 @@ HEADERS += Cell.h \
            SegmentUpdateInfo.h \
            Synapse.h \
            targetver.h \
-           ui_htm.h \
            Utils.h \
            View.h
 FORMS += htm.ui
