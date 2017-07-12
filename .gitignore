@@ -8,3 +8,4 @@ htm/qrc_images.cpp
 htm/ui_htm.h
 htm/moc_View.cpp
 htm/moc_htm.cpp
+build-htm-*/

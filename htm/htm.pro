@@ -53,7 +53,7 @@ SOURCES += Cell.cpp \
            Synapse.cpp \
            View.cpp
 
-RESOURCES += htm.qrc images.qrc
+RESOURCES += images.qrc
 
 # LIBS += -lQt5Widgets
 

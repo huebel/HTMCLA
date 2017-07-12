@@ -6,7 +6,6 @@
 #include <QtWidgets/QTableWidget>
 #include <QtCore/QBasicTimer>
 #include <QtGui/QKeyEvent>
-#include "ui_htm.h"
 #include "View.h"
 
 class QLineEdit;
