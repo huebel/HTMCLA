@@ -523,7 +523,7 @@ void htm::Run()
 	timer.start(0, this);
 }
 
-void htm::SelectSegment(const QModelIndex & current, const QModelIndex & previous)
+void htm::SelectSegment(const QModelIndex & current, const QModelIndex & /*previous*/)
 {
 	selSegmentIndex = current.row();
 
@@ -538,7 +538,7 @@ void htm::DeselectSegment()
 	segmentsTable->selectionModel()->clearCurrentIndex();
 }
 
-void htm::CurrentTabChanged(int _currentTabIndex)
+void htm::CurrentTabChanged(int /*_currentTabIndex*/)
 {
 	if (networkFrameRequiresUpdate)
 	{

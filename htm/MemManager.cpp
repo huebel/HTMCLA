@@ -72,7 +72,7 @@ MemObject *MemManager::GetObject(MemObjectType _object_type)
 		freeCountArray[_object_type]--; // Decrement free object count for this type
 
     // Initialize the object for use/reuse
-    curObject->Initialize();
+    curObject->Employ();
 
     return curObject;
   }

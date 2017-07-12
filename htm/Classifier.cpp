@@ -4,7 +4,7 @@
 namespace htm {
 
 Classifier::Classifier(QString &_id, int _numItems, QString _regionID, QString _inputspaceID, QStringList &_labels)
-	: DataSpace(_id), labels(_labels), regionID(_regionID), inputspaceID(_inputspaceID), numItems(_numItems)
+    : DataSpace(_id), regionID(_regionID), inputspaceID(_inputspaceID), numItems(_numItems), labels(_labels)
 {
 }
 
@@ -38,5 +38,5 @@ bool Classifier::GetIsActive(int _x, int _y, int _index)
 	return false;
 }
 
-};
+}
 

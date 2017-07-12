@@ -41,8 +41,8 @@ public:
 class PatternInfo
 {
 public:
-	PatternInfo() : type(PATTERN_NONE), startTime(-1), endTime(-1), minTrialDuration(1), maxTrialDuration(1), string(""), imageMotion(PATTERN_IMAGE_MOTION_NONE), trialCount(0), curTrialStartTime(-1), nextTrialStartTime(-1) {};
-	PatternInfo(PatternType _type, int _startTime, int _endTime, int _minTrialDuration, int _maxTrialDuration, QString &_string, PatternImageMotion _imageMotion, std::vector<int*> &_bitmaps, std::vector<ImageInfo*> &_images) : type(_type), startTime(_startTime), endTime(_endTime), minTrialDuration(_minTrialDuration), maxTrialDuration(_maxTrialDuration), string(_string), imageMotion(_imageMotion), trialCount(0), curTrialStartTime(-1), nextTrialStartTime(-1), bitmaps(_bitmaps), images(_images) {};
+    PatternInfo() : type(PATTERN_NONE), imageMotion(PATTERN_IMAGE_MOTION_NONE), startTime(-1), endTime(-1), minTrialDuration(1), maxTrialDuration(1), string(""), trialCount(0), curTrialStartTime(-1), nextTrialStartTime(-1) {}
+    PatternInfo(PatternType _type, int _startTime, int _endTime, int _minTrialDuration, int _maxTrialDuration, QString &_string, PatternImageMotion _imageMotion, std::vector<int*> &_bitmaps, std::vector<ImageInfo*> &_images) : type(_type), imageMotion(_imageMotion), startTime(_startTime), endTime(_endTime), minTrialDuration(_minTrialDuration), maxTrialDuration(_maxTrialDuration), string(_string), bitmaps(_bitmaps), images(_images), trialCount(0), curTrialStartTime(-1), nextTrialStartTime(-1) {}
 	PatternInfo(PatternInfo &_original) {type = _original.type; startTime = _original.startTime, endTime = _original.endTime; minTrialDuration = _original.minTrialDuration; maxTrialDuration = _original.maxTrialDuration; string = _original.string; imageMotion = _original.imageMotion; trialCount = 0; curTrialStartTime = -1; nextTrialStartTime = -1;}
 
 	PatternType type;

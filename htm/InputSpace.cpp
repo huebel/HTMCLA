@@ -6,7 +6,7 @@
 namespace htm {
 
 InputSpace::InputSpace(QString &_id, int _sizeX, int _sizeY, int _numValues, std::vector<PatternInfo*> &_patterns)
-	: DataSpace(_id), image(NULL), patterns(_patterns)
+    : DataSpace(_id), patterns(_patterns), image(NULL)
 {
 	sizeX = _sizeX;
 	sizeY = _sizeY;
@@ -90,7 +90,7 @@ void InputSpace::ApplyPatterns(int _time)
 {
 	PatternInfo *curPattern;
 
-	for (int i = 0; i < patterns.size(); i++)
+    for (std::size_t i = 0; i < patterns.size(); i++)
 	{
 		curPattern = patterns[i];
 
@@ -546,6 +546,9 @@ void InputSpace::ApplyPattern(PatternInfo *_pattern, int _time)
 		}
 
 		break;
+    case PATTERN_NONE:
+        // Do nothing
+        break;
 	}
 }
 

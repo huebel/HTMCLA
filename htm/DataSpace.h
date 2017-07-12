@@ -17,7 +17,8 @@ class DataSpace
 {
 public:
 
-	DataSpace(QString &_id) {id = _id; index = -1;}
+    DataSpace(QString &_id) { id = _id; index = -1; }
+    virtual ~DataSpace() {}
 
 	const QString &GetID() {return id;}
 	void SetID(QString &_id) {id = _id;}

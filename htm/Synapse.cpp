@@ -13,7 +13,7 @@ Synapse::~Synapse(void)
 
 void Synapse::Initialize(SynapseParameters *params)
 {
-  Params = params;
+    Params = params;
 	IsActive = false;
 	WasActive = false;
 	WasActiveFromLearning = false;
@@ -61,5 +61,5 @@ void Synapse::IncreasePermanence(float amount, float max)
 	SetPermanence(Min(max, Permanence + amount));
 }
 
-};
+} // namespace htm
 

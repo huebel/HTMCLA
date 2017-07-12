@@ -185,41 +185,41 @@ QMenu *View::CreateOptionsMenu()
 
 	viewActivityAct = new QAction(tr("View &Activity (a)"), this);
 	menu->addAction(viewActivityAct);
-  viewActivityAct->setCheckable(true);
+    viewActivityAct->setCheckable(true);
 	connect(viewActivityAct, SIGNAL(triggered()), this, SLOT(ViewMode_Activity()));
 
 	viewReconstructionAct = new QAction(tr("View &Top-Down Reconstruction (r)"), this);
 	menu->addAction(viewReconstructionAct);
-  viewReconstructionAct->setCheckable(true);
+    viewReconstructionAct->setCheckable(true);
 	connect(viewReconstructionAct, SIGNAL(triggered()), this, SLOT(ViewMode_Reconstruction()));
 
 	viewPredictionAct = new QAction(tr("View &Top-Down Prediction (p)"), this);
 	menu->addAction(viewPredictionAct);
-  viewPredictionAct->setCheckable(true);
+    viewPredictionAct->setCheckable(true);
 	connect(viewPredictionAct, SIGNAL(triggered()), this, SLOT(ViewMode_Prediction()));
 
 	menu->addSeparator();
 
 	viewBoostAct = new QAction(tr("View &Boost"), this);
 	menu->addAction(viewBoostAct);
-  viewBoostAct->setCheckable(true);
+    viewBoostAct->setCheckable(true);
 	connect(viewBoostAct, SIGNAL(triggered()), this, SLOT(ViewMode_Boost()));
 
 	menu->addSeparator();
 
 	viewConnectionsInAct = new QAction(tr("View &Connections In (i)"), this);
 	menu->addAction(viewConnectionsInAct);
-  viewConnectionsInAct->setCheckable(true);
+    viewConnectionsInAct->setCheckable(true);
 	connect(viewConnectionsInAct, SIGNAL(triggered()), this, SLOT(ViewMode_ConnectionsIn()));
 
 	viewConnectionsOutAct = new QAction(tr("View &Connections Out (o)"), this);
 	menu->addAction(viewConnectionsOutAct);
-  viewConnectionsOutAct->setCheckable(true);
+    viewConnectionsOutAct->setCheckable(true);
 	connect(viewConnectionsOutAct, SIGNAL(triggered()), this, SLOT(ViewMode_ConnectionsOut()));
 
 	viewMarkedCellsAct = new QAction(tr("View &Marked Cells (m)"), this);
 	menu->addAction(viewMarkedCellsAct);
-  viewMarkedCellsAct->setCheckable(true);
+    viewMarkedCellsAct->setCheckable(true);
 	connect(viewMarkedCellsAct, SIGNAL(triggered()), this, SLOT(ViewMode_MarkedCells()));
 
 	viewActivityAct->setChecked(true);
@@ -976,5 +976,5 @@ void View::ShowDataSpace(const QString &_id)
 	marked_cells.clear();
 }
 
-};
+} // namespace htm
 

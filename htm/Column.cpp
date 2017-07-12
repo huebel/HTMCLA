@@ -135,7 +135,7 @@ void Column::CreateProximalSegments(std::vector<DataSpace*> &inputList, std::vec
 	float inputCenterY = (((float)destHcolY) + 0.5f) / (float)((region->GetSizeY()) / (region->GetHypercolumnDiameter()));
 
 	// Iterate through each input DataSpace, creating synapses for each one, in each column's proximal segment.
-	for (int inputIndex = 0; inputIndex < inputList.size(); inputIndex++)
+    for (std::size_t inputIndex = 0; inputIndex < inputList.size(); inputIndex++)
 	{
 		// Get a pointer to the current input DataSpace.
 		curInput = inputList[inputIndex];

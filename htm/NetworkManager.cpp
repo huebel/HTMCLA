@@ -1275,7 +1275,7 @@ void NetworkManager::ClearData()
 	Cell *cell;
 
 	// Iterate through all regions...
-	for (int regionIndex = 0; regionIndex < regions.size(); regionIndex++)
+    for (std::size_t regionIndex = 0; regionIndex < regions.size(); regionIndex++)
 	{
 		region = regions[regionIndex];
 
@@ -1327,9 +1327,9 @@ void NetworkManager::ClearData_DistalSegment(Segment *_segment)
 	}
 }
 
-bool NetworkManager::LoadData(QString &_filename, QFile *_file, QString &_error_msg)
+bool NetworkManager::LoadData(QString &/*_filename*/, QFile *_file, QString &_error_msg)
 {
-	int numRegions, width, height, cellsPerCol, numDistalSegments;
+    int numRegions, width, height, cellsPerCol, numDistalSegments;
 	Region *region;
 	Column *column;
 	Cell *cell;
@@ -1351,7 +1351,7 @@ bool NetworkManager::LoadData(QString &_filename, QFile *_file, QString &_error_
 	}
 
 	// Iterate through all regions...
-	for (int regionIndex = 0; regionIndex < Min(numRegions, regions.size()); regionIndex++)
+    for (std::size_t regionIndex = 0; regionIndex < std::min(static_cast<std::size_t>(numRegions), regions.size()); regionIndex++)
 	{
 		// Get a pointer to the current Region.
 		region = regions[regionIndex];
@@ -1523,11 +1523,13 @@ bool NetworkManager::LoadData_DistalSegment(QDataStream &_stream, Region *_regio
 	return true;
 }
 
-bool NetworkManager::SaveData(QString &_filename, QFile *_file, QString &_error_msg)
+bool NetworkManager::SaveData(QString & /*_filename*/, QFile *_file, QString &_error_msg)
 {
 	Region *region;
 	Column *column;
 	Cell *cell;
+
+    try {
 
 	QDataStream stream(_file);
 
@@ -1535,7 +1537,7 @@ bool NetworkManager::SaveData(QString &_filename, QFile *_file, QString &_error_
 	stream << (int)(regions.size());
 
 	// Iterate through all regions...
-	for (int regionIndex = 0; regionIndex < regions.size(); regionIndex++)
+    for (std::size_t regionIndex = 0; regionIndex < regions.size(); regionIndex++)
 	{
 		region = regions[regionIndex];
 
@@ -1577,7 +1579,12 @@ bool NetworkManager::SaveData(QString &_filename, QFile *_file, QString &_error_
 		}
 	}
 
-	return true;
+    }
+    catch (std::exception& e) {
+        _error_msg = e.what();
+    }
+
+    return true;
 }
 
 bool NetworkManager::SaveData_ProximalSegment(QDataStream &_stream, Segment *_segment)
